@@ -23,8 +23,8 @@ export function getProDir(dir: string, fileName: string): string {
 
 /**
  * 获取L文件路径
- * @param text 
- * @param document 
+ * @param text
+ * @param document
  */
 export function getLFilePath(
     document: TextDocument, text: string
@@ -34,11 +34,11 @@ export function getLFilePath(
         let proDir: string;
         proDir = getProDir(dir.uri.fsPath, document.fileName);
         if (proDir) {
-            // 优先查找项目下的library目录
+            // 优先查找MY下的library目录
             let filePath: string | null;
             filePath = findFileExists([
+                path.join(proDir, '..', 'my', 'library', text + '.class.php'),
                 path.join(proDir, 'library', text + '.class.php'),
-                path.join(proDir, '..', 'my', 'library', text + '.class.php')
             ]);
             if (filePath) {
                 return {
@@ -49,16 +49,16 @@ export function getLFilePath(
             }
         }
     }
-    
+
     return null;
 }
 
 /**
  * 获取DBService文件路径
- * @param document 
- * @param module 
- * @param controller 
- * @param action 
+ * @param document
+ * @param module
+ * @param controller
+ * @param action
  */
 export function getDBFilePath(
     document: TextDocument, module: string, controller: string, action: string
